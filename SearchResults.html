@@ -15,7 +15,6 @@
 
 <body>
   <header>
-    <!-- place navbar here -->
     <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #ff8000;">
       <div class="container">
         <a class="navbar-brand" href="home.html"><i class="fa fa-home icon"></i></a>
@@ -26,10 +25,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
+                  <a class="nav-link active" href="SearchResults.html" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#" aria-current="page">Vender<span class="visually-hidden">(current)</span></a>
+                  <a class="nav-link active" href="Crear_publicacion.html" aria-current="page">Vender<span class="visually-hidden">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end" style="float: right;">
@@ -39,10 +38,14 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="registro.html" aria-current="page">Registrarse<span class="visually-hidden">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="login.html" aria-current="page">Iniciar Sesion<span class="visually-hidden">(current)</span></a>
+                </li>
             </ul>
         </div>
   </div>
-  </nav>
+</nav>
+  </header>
       
     <h2 style="text-align: center;margin-top: 70px; ">Buscar por</h2>
     <form class="d-flex  lg">
@@ -101,7 +104,7 @@
     <div class="card-body">
       <h4 class="card-title">Casa numero 1</h4>
       <p class="card-text">Esta casa es una prueba, la casa numero uno es una casa muy bonita con un gran jardin</p>
-      <button type="button" class="btn btn-warning" href="#">Visitar Casa</button>
+      <a href="houseview.html" class="btn btn-warning">Visitar Casa</a>     
     </div>
   </div>
 
@@ -110,7 +113,7 @@
     <div class="card-body">
       <h4 class="card-title">Casa numero 2</h4>
       <p class="card-text">Esta casa es una casa de prueba, una casa muy bonita con excelentes vecinos</p>
-      <button type="button" class="btn btn-warning" href="#">Visitar Casa</button>
+      <a href="houseview.html" class="btn btn-warning">Visitar Casa</a>     
     </div>
   </div>
 
