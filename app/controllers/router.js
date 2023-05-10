@@ -4,7 +4,7 @@ const path = require('path');
 //const adminProductRouter = require('../routes/admin_products');
 const userRouter = require('../routes/users');
 //const homeRouter = require('../routes/home');
-const viewRouter = require('../views/view');
+const viewRouter = require('../routes/view');
 const router = express.Router();
 
 function validateAdmin(req,res,next){
@@ -17,7 +17,7 @@ function validateAdmin(req,res,next){
 }
 
 
-router.use('/users',userRouter);
+router.use('/user',userRouter);
 router.use('/views',viewRouter);
 //router.use('/home',homeRouter);
 /* 
@@ -26,7 +26,10 @@ router.use('/admin/products',validateAdmin,adminProductRouter); */
 
 router.get('/',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/home.html")));
 router.get('/home',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/home.html")));
-router.get('/register',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/registro.html")));
+router.get('/AddHome',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/Crear_publicacion.html")));
+router.get('/search',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/SearchResults.html")));
+
+
 //router.get('/admin',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/admin.html")));
 //router.get('/admin/products',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/admin.html")));)
 

@@ -1,37 +1,36 @@
 
 
-function registro(TipoDeUsuario){
+function register(){
     let xhr = new XMLHttpRequest();
-    xhr.open('POST','/users/register',true);
+    xhr.open('POST','/user/register',true);
     xhr.setRequestHeader('Content-Type','application/json');
-    if(TipoDeUsuario == 'Vendedor'){
-        console.log("Vendedor");
-        let name = document.getElementById("NombreVendedor").value;
-        let email = document.getElementById("CorreoVendedor").value;
-        let password = document.getElementById("PasswordVendedor").value;
-        let Descripcion = document.getElementById("DescripcionVendedor").value;
-        let Fecha = document.getElementById("FechaVendedor").value;
-        let Imagen = document.getElementById("ImagenVendedor").value;
-        let Ciudad = document.getElementById("CiudadVendedor").value;
-        let Estado = document.getElementById("EstadoVendedor").value;
-        let Pais = document.getElementById("PaisVendedor").value;
-        let Telefono = document.getElementById("TelefonoVendedor").value;
-        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"description\":\""+Descripcion+"\",\"birthdate\":\""+Fecha+"\",\"image\":\""+Imagen+"\",\"city\":\""+Ciudad+"\",\"state\":\""+Estado+"\",\"country\":\""+Pais+"\",\"phone\":\""+Telefono+"\"}";
+    if(document.getElementById("comprador").checked){
+        console.log("Comprador");
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let description = document.getElementById("description").value;
+        let date = document.getElementById("date").value;
+        let city = document.getElementById("city").value;
+        let state = document.getElementById("state").value;
+        let country = document.getElementById("country").value;
+        let phone = document.getElementById("phone").value;
+        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"description\":\""+description+"\",\"birthdate\":\""+date+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\",\"UserType\":\"comprador\"}";
         console.table(JSON.parse(data));
         xhr.send(data);
     }
-    else if(TipoDeUsuario == 'Comprador'){
-        console.log("Comprador");
-        let name = document.getElementById("NombreComprador").value;
-        let email = document.getElementById("CorreoComprador").value;
-        let password = document.getElementById("PasswordComprador").value;
-        let Fecha = document.getElementById("FechaComprador").value;
-        let Imagen = document.getElementById("ImagenComprador").value;
-        let Ciudad = document.getElementById("CiudadComprador").value;
-        let Estado = document.getElementById("EstadoComprador").value;
-        let Pais = document.getElementById("PaisComprador").value;
-        let Telefono = document.getElementById("TelefonoComprador").value;
-        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"birthdate\":\""+Fecha+"\",\"image\":\""+Imagen+"\",\"city\":\""+Ciudad+"\",\"state\":\""+Estado+"\",\"country\":\""+Pais+"\",\"phone\":\""+Telefono+"\"}";
+    else if(document.getElementById("vendedor").checked){
+        console.log("Vendedor");
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let description = document.getElementById("description").value;
+        let date = document.getElementById("date").value;
+        let city = document.getElementById("city").value;
+        let state = document.getElementById("state").value;
+        let country = document.getElementById("country").value;
+        let phone = document.getElementById("phone").value;
+        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"description\":\""+description+"\",\"birthdate\":\""+date+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\",\"UserType\":\"vendedor\"}";
         console.table(JSON.parse(data));
         xhr.send(data);
     }
