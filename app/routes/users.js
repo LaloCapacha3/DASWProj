@@ -7,7 +7,7 @@ mongoose.connect('mongodb+srv://admin:casas@myapp.go7n5tu.mongodb.net/ProyectoFi
 
 
 router.get('/',(req,res) => {
-    res.send("Working!");
+    res.sendFile(path.resolve(__dirname + "/../views/user.html"));
 });
 
 router.post('/register',(req,res) => {
