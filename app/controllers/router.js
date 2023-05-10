@@ -3,6 +3,7 @@ const path = require('path');
 //const productRouter = require('../routes/products');
 //const adminProductRouter = require('../routes/admin_products');
 const userRouter = require('../routes/users');
+//const homeRouter = require('../routes/home');
 const router = express.Router();
 
 function validateAdmin(req,res,next){
@@ -16,6 +17,7 @@ function validateAdmin(req,res,next){
 
 
 router.use('/users',userRouter);
+//router.use('/home',homeRouter);
 /* 
 router.use('/products',productRouter);
 router.use('/admin/products',validateAdmin,adminProductRouter); */

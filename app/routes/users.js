@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 let app = express();
 
-mongoose.connect('mongodb+srv://admin:Mixl1917@myapp.go7n5tu.mongodb.net/ProyectoFinal')
+mongoose.connect('mongodb+srv://admin:casas@myapp.go7n5tu.mongodb.net/ProyectoFinal')
+
 
 router.get('/',(req,res) => {
     res.send("Working!");
