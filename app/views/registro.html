@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Registro</title>
+  <title>Test main</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +10,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/40f5ff1f80.js" crossorigin="anonymous"></script>
-    <script src="../controllers/registro.js"></script>
 </head>
 
 <style type="text/css">
@@ -23,7 +22,7 @@
     <header>
       <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #ff8000;">
             <div class="container">
-              <a class="navbar-brand" href="home"><i class="fa fa-home icon"></i></a>
+              <a class="navbar-brand" href="home.html"><i class="fa fa-home icon"></i></a>
               <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                   aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -39,10 +38,10 @@
                   </ul>
                   <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end" style="float: right;">
                       <li class="nav-item">
-                        <a class="nav-link active" href="user" aria-current="page">Usuario<span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link active" href="user.html" aria-current="page">Usuario<span class="visually-hidden">(current)</span></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" href="registro" aria-current="page">Registrarse<span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link active" href="registro.html" aria-current="page">Registrarse<span class="visually-hidden">(current)</span></a>
                       </li>
                   </ul>
               </div>
@@ -69,53 +68,54 @@
                   <form>
                     <div class="form-group">
                       <label for="UserName">Nombre completo:</label>
-                      <input type="text" class="form-control" id="NombreVendedor">
+                      <input type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Descripción:</label>
-                      <input type="text" class="form-control" id="DescripcionVendedor">
+                      <input type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Fecha de nacimiento:</label>
-                      <input type="date" class="form-control" id="FechaVendedor">
+                      <input type="date" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Teléfono:</label>
-                      <input type="tel" class="form-control" id="TelefonoVendedor">
+                      <input type="tel" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">País:</label>
-                      <input type="text" class="form-control" id="PaisVendedor">
+                      <input type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Estado:</label>
-                      <input type="text" class="form-control" id="EstadoVendedor">
+                      <input type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Ciudad:</label>
-                      <input type="text" class="form-control" id="CiudadVendedor">
+                      <input type="text" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="UserName">Link de imagen:</label>
-                      <input type="url" class="form-control" id="ImagenVendedor">
+                      <input type="url" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="email">Correo:</label>
-                      <input type="email" class="form-control" id="CorreoVendedor">
+                      <input type="email" class="form-control">
                     </div>
                     <div class="form-group">
                       <label for="pwd">Contraseña:</label>
-                      <input type="password" class="form-control" id="PasswordVendedor">
+                      <input type="password" class="form-control">
+
                     </div>
                     <div class="form-group">
                       <label for="pwd">Confirmar contraseña:</label>
-                      <input type="password" class="form-control"> <!-- id="PasswordVendedor" -->
+                      <input type="password" class="form-control">
                     </div>
                     <button type="submit" class=" pull-left btn-link"><a href="">Terminos y condiciones </a></button>
                     <button type="submit" class=" pull-right btn-link"><a href="">Olvidaste tu contraseña?</a></button>
                   </form>
                   <br/>
-                  <a  class="pull-right btn btn-block btn-success" style="text-align: center;" onclick="registro('Vendedor')">Registrarse como vendedor</a>
+                  <a href="#" class="pull-right btn btn-block btn-success" style="text-align: center;">Registrarse como vendedor</a>
                 </div>
                 <div id="compra" class="tab-pane fade">
                   <form action="#">
@@ -168,7 +168,7 @@
                     <button type="submit" class=" pull-right btn-link"><a href="">Olvidaste tu contraseña?</a></button>
                   </form>
                   <br/>
-                  <a  class="pull-right btn btn-block btn-success" onclick="registro('Comprador')">Registrarse como comprador</a>
+                  <a href="#" class="pull-right btn btn-block btn-success" >Registrarse como comprador</a>
                 </div>
               </div>
             </div>
