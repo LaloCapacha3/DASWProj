@@ -12,7 +12,7 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/40f5ff1f80.js" crossorigin="anonymous"></script>
     <script src="../controllers/user.js"></script>
-    
+    <script src="../controllers/home.js"></script>
     
 </head>
 
@@ -55,7 +55,8 @@
 
   <main>
     <script>
-      document.addEventListener("DOMContentLoaded", NavBar);
+        document.addEventListener("DOMContentLoaded", NavBar);
+      
     </script>
     <br><br><br><br>
     <div class="row justify-content-md-center">
@@ -65,11 +66,11 @@
     </div>
     <div class="row  justify-content-md-center">
         <div class="col-8">
-            <form class="d-flex  lg">
-                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Casa</a></li>
-                        <li><a class="dropdown-item" href="#">Departamento</a></li>
+            <form class="d-flex lg">
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="searchmenu">Tipo de vivienda</button>
+                    <ul class="dropdown-menu" >
+                        <li><button class="dropdown-item button" onclick="SearchByFilter(1)">Casa</button>
+                        <li><button class="dropdown-item button" onclick="SearchByFilter(2)">Departamento</button>
                     </ul>
                     <input class="form-control form-control-lg" type="text" placeholder="Buscar Casas">
                     <a href="search" class="btn btn-outline-warning lg">Buscar</a>     

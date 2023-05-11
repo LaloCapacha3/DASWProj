@@ -1,5 +1,4 @@
 
-
 function register(){
     let xhr = new XMLHttpRequest();
     xhr.open('POST','/user/register',true);
@@ -16,6 +15,10 @@ function register(){
     let UserType = "";
 
     if(name == undefined || email == undefined || password == undefined || description == undefined || date == undefined || city == undefined || state == undefined || country == undefined || phone == undefined){
+        alert("Debe llenar todos los campos");
+        return;
+    }
+    else if(name == "" || email == "" || password == "" || description == "" || date == "" || city == "" || state == "" || country == "" || phone == ""){
         alert("Debe llenar todos los campos");
         return;
     }
