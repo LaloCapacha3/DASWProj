@@ -7,14 +7,7 @@ const userRouter = require('../routes/users');
 const viewRouter = require('../routes/view');
 const router = express.Router();
 
-function validateAdmin(req,res,next){
-    if(req.get('x-token') == 'admin' ){
-        next();
-    }
-    else{
-        res.status(403).send('Acesso no autorizado no se cuenta con privilegios de administrador')
-    }
-}
+
 
 
 router.use('/user',userRouter);
