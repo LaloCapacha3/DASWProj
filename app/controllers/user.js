@@ -186,16 +186,52 @@ function SaveUserInfo(){
     }
 }
 
-
-
-
-
-    /* xhr.open('GET','/user/info',true);
-    xhr.setRequestHeader('Content-Type','application/json');
-    xhr.setRequestHeader('x-token',sessionStorage.getItem("UserValidation"));
+function NavBar(){
+    xhr = new XMLHttpRequest();
+    xhr.open('GET','/user/info',true);
+    let validate = sessionStorage.getItem("UserValidation");
+    xhr.setRequestHeader('x-token',validate);
     xhr.send();
-    xhr.onload = function(){ */
+    xhr.onload = function(){
+        let nav = document.getElementById("nav");
+    
+    if(xhr.status == 200){
+        nav.innerHTML = "\
+        <nav class=\"navbar navbar-dark navbar-expand-sm\" style=\"background-color: green;\">\
+          <div class=\"container\">\
+            <a class=\"navbar-brand\" href=\"../home\"><i class=\"fa fa-home icon\"></i></a>\
+            <button class=\"navbar-toggler d-lg-none\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapsibleNavId\" aria-controls=\"collapsibleNavId\"\
+                aria-expanded=\"false\" aria-label=\"Toggle navigation\">\
+                <span class=\"navbar-toggler-icon\"></span>\
+            </button>\
+            <div class=\"collapse navbar-collapse\" id=\"collapsibleNavId\">\
+                <ul class=\"navbar-nav me-auto mt-2 mt-lg-0\">\
+                    <li class=\"nav-item\">\
+                      <a class=\"nav-link active\" href=\"../search\" aria-current=\"page\">Comprar<span class=\"visually-hidden\">(current)</span></a> \
+                    </li>\
+                    <li class=\nav-item\">\
+                      <a class=\"nav-link active\" href=\"../AddHome\" aria-current=\"page\">Vender<span class=\"visually-hidden\">(current)</span></a>\
+                    </li>\
+                </ul>\
+                <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end\" style=\"float: right;\">\
+                    <li class=\"nav-item\">\
+                      <a class=\"nav-link active\" href=\"../user/profile\" aria-current=\"page\">Usuario<span class=\"visually-hidden\">(current)</span></a>\
+                    </li>\
+                    <li class=\"nav-item\">\
+                        <button type=\"button\" class=\"btn btn-danger\" onclick=\"logout()\">Cerrar sesion</button>\
+                    </li>\
+                </ul>\
+            </div>\
+      </div>\
+    </nav>";
+    }
 
+}
 
+}
 
-
+function logout(){
+    sessionStorage.removeItem("UserValidation");
+    alert("Sesion cerrada correctamente");
+    window.location.href = "http://localhost:3000/home";
+}
