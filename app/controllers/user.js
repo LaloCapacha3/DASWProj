@@ -156,10 +156,10 @@ function CancelEdit(){
 }
 
 function SaveUserInfo(){
-    /* let xhr = new XMLHttpRequest();
-    xhr.open('PUT','/user/info',true); */
-    //xhr.setRequestHeader('Content-Type','application/json');
-    //xhr.setRequestHeader('x-token',sessionStorage.getItem("UserValidation"));
+    let xhr = new XMLHttpRequest();
+    xhr.open('PUT','/user/info',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('x-token',sessionStorage.getItem("UserValidation"));
     let name = document.getElementById("name").innerText;
     let email = document.getElementById("email").innerText;
     let date = document.getElementById("date").innerText;
@@ -168,13 +168,22 @@ function SaveUserInfo(){
     let state = document.getElementById("state").innerText;
     let country = document.getElementById("country").innerText;
     let phone = document.getElementById("phone").innerText;
-    let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"birthdate\":\""+date+"\",\"description\":\""+description+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\"}";
+    let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"date\":\""+date+"\",\"description\":\""+description+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\"}";
     console.table(JSON.parse(data));
-    //xhr.send(data);
+    xhr.send(data);
     editbutton.innerHTML = "\
     <div class=\"input-group-append\">\
     <button type='button' class='btn btn-primary btn-block' onclick='EditUser()'>Editar perfil</button>\
     </div>";
+    xhr.onload = function(){
+        if(xhr.status == 200){
+            alert("Informacion actualizada correctamente");
+            ShowUserInfo();
+        }
+        else{
+            alert("Error al actualizar informacion");
+        }
+    }
 }
 
 

@@ -134,6 +134,41 @@ router.get('/info',(req,res) => {
     });
 });
 
+router.put('/info',(req,res) => {
+    console.log("Info working!");
+    let token = req.headers['x-token'];
+    console.log("Token: " + token);
+    mongoose.model('vendedores').findOne({ID: token}).then((vendedor) => {
+        if(vendedor == null){
+            res.sendStatus(404);
+        }
+        else{
+            let x = req.body;
+            console.log("Body: " + x);
+            let y = Object.values(x);
+            console.log("Array" + y);
+            console.log("Array size: " + y.length);
+            console.log("Tipo de date" + typeof(x.date));
+            if(!y.length)
+            {
+                res.sendStatus(400);
+            }
+            else{
+                console.table(y);
+                vendedor.name = x.name;
+                vendedor.email = x.email;
+                vendedor.date = x.date;
+                vendedor.description = x.description;
+                vendedor.country = x.country;
+                vendedor.state = x.state;
+                vendedor.city = x.city;
+                vendedor.phone = x.phone;
+                vendedor.save();
+                res.sendStatus(200);
+            }
+        }
+    });
+});
 
 
 
