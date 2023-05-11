@@ -12,7 +12,7 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/40f5ff1f80.js" crossorigin="anonymous"></script>
     <script src="../controllers/user.js"></script>
-    <script src="../controllers/home.js"></script>
+    <script src="../controllers/search.js"></script>
     
 </head>
 
@@ -56,7 +56,6 @@
   <main>
     <script>
         document.addEventListener("DOMContentLoaded", NavBar);
-      
     </script>
     <br><br><br><br>
     <div class="row justify-content-md-center">
@@ -67,13 +66,13 @@
     <div class="row  justify-content-md-center">
         <div class="col-8">
             <form class="d-flex lg">
-                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="searchmenu">Tipo de vivienda</button>
-                    <ul class="dropdown-menu" >
-                        <li><button class="dropdown-item button" onclick="SearchByFilter(1)">Casa</button>
-                        <li><button class="dropdown-item button" onclick="SearchByFilter(2)">Departamento</button>
-                    </ul>
-                    <input class="form-control form-control-lg" type="text" placeholder="Buscar Casas">
-                    <a href="search" class="btn btn-outline-warning lg">Buscar</a>     
+                <button id="vivienda" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Vivienda</button> 
+                    <ul class="dropdown-menu"> 
+                      <li><a onclick="selectOption(this)" class="dropdown-item" href="#">Casa</a></li> 
+                      <li><a onclick="selectOption(this)" class="dropdown-item" href="#">Departamento</a></li>
+                     </ul>
+                    <input class="form-control form-control-lg" type="text" placeholder="Buscar Casas por lugar" id="SearchBar">
+                    <a href="search" class="btn btn-outline-warning lg" onclick="query()">Buscar</a>     
             </form>
         </div>
     </div>

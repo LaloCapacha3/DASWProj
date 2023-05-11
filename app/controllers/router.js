@@ -3,8 +3,8 @@ const path = require('path');
 //const productRouter = require('../routes/products');
 //const adminProductRouter = require('../routes/admin_products');
 const userRouter = require('../routes/users');
-//const homeRouter = require('../routes/home');
 const viewRouter = require('../routes/view');
+const resultsRouter = require('../routes/results');
 const router = express.Router();
 
 
@@ -12,10 +12,10 @@ const router = express.Router();
 
 router.use('/user',userRouter);
 router.use('/views',viewRouter);
+router.use('/results',resultsRouter);
+
 //router.use('/home',homeRouter);
-/* 
-router.use('/products',productRouter);
-router.use('/admin/products',validateAdmin,adminProductRouter); */
+
 
 router.get('/',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/home.html")));
 router.get('/home',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/home.html")));
@@ -23,8 +23,7 @@ router.get('/AddHome',(req,res) => res.sendFile(path.resolve(__dirname + "/../vi
 router.get('/search',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/SearchResults.html")));
 
 
-//router.get('/admin',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/admin.html")));
-//router.get('/admin/products',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/admin.html")));)
+
 
 
 module.exports = router;
