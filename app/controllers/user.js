@@ -37,6 +37,7 @@ function register(){
     
         xhr.onload = function(){
             if(xhr.status == 200){
+                sessionStorage.setItem("UserValidation",xhr.responseText);
                 alert("Usuario registrado correctamente");
                 window.location.href = "http://localhost:3000/home";
             }

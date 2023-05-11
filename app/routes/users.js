@@ -79,7 +79,6 @@ router.post('/register',(req,res) => {
                 res.sendStatus(409);
             }
             else{
-                console.table(y);
                 let vendedor = new Vendedor({
                     ID: utils.generateUUID(),
                     name: x.name,
@@ -93,8 +92,10 @@ router.post('/register',(req,res) => {
                     phone: x.phone,
                     NoOfHomes: 0
                 });
+                console.log("Vendedor: ");
+                console.table(vendedor);
                 vendedor.save();
-                res.sendStatus(200);
+                res.status(200).send(vendedor.ID);
             }
         });
         
