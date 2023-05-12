@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Casa</title>
+  <title>Home</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,62 +11,122 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/40f5ff1f80.js" crossorigin="anonymous"></script>
-
+    <script src="../../app/controllers/user.js"></script>
+    <script src="../../app/controllers/search.js"></script>
+    <script src="../../app/controllers/HVcontrol.js"></script>
+    
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #ff8000;">
-            <div class="container">
-              <a class="navbar-brand" href="../../home"><i class="fa fa-home icon"></i></a>
-              <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                  aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="collapsibleNavId">
-                  <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="../search" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="../AddHome" aria-current="page">Vender<span class="visually-hidden">(current)</span></a>
-                      </li>
-                  </ul>
-                  <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end" style="float: right;">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="../user/profile" aria-current="page">Usuario<span class="visually-hidden">(current)</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="../user/register" aria-current="page">Registrarse<span class="visually-hidden">(current)</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="../user/login" aria-current="page">Iniciar Sesion<span class="visually-hidden">(current)</span></a>
-                      </li>
-                  </ul>
-              </div>
+  <header>
+    <div id="nav">
+    <nav class="navbar navbar-dark navbar-expand-sm" style="background-color: #ff8000;">
+      <div class="container">
+        <a class="navbar-brand" href="../../home"><i class="fa fa-home icon"></i></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" href="../search" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="../AddHome" aria-current="page">Vender<span class="visually-hidden">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end" style="float: right;">
+                <li class="nav-item">
+                  <a class="nav-link active" href="../user/profile" aria-current="page">Usuario<span class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="../user/register" aria-current="page">Registrarse<span class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="../user/login" aria-current="page">Iniciar Sesion<span class="visually-hidden">(current)</span></a>
+                </li>
+            </ul>
         </div>
-      </nav>
-        
-        </header>
+  </div>
+</nav>
+</div>
+    
+    </header>
+
   <main>
+    <script>
+        //document.addEventListener("DOMContentLoaded", NavBar);
+        document.addEventListener("DOMContentLoaded", (event) => {
+    console.log("Entro a la funcion");
+    xhr = new XMLHttpRequest();
+    xhr.open('GET','/views/casa/getinfo',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('x-token',sessionStorage.getItem("IDCasa"));
+    console.log("Enviando")
+    xhr.send();
+    xhr.onload = function(){
+        if(xhr.status == 200){       
+            console.log(JSON.parse(xhr.responseText)[0]);
+            let home = JSON.parse(xhr.responseText)[0]
+            let user = JSON.parse(xhr.responseText)[1]
+            sessionStorage.setItem("IDUser",user.ID);
+            let FillInfo = home;
+            const InfoHTML = `
+            <div class="row">
+                <h1>CASA EN VENTA</h1>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <i class="fa fa-user icon"></i> <a href="/views/user">${user.name}</a> 
+                </div>
+                <div class="col">
+                    <i class="fa fa-map-marker icon"></i> <td class="house_data" id="location">Ubicacion: ${FillInfo.location}</td>
+                </div>
+                <div class="col">
+                    <i class="fa fa-bath icon"></i> <td class="house_data" id="NBath">${FillInfo.NBath}</td>
+                </div>
+                <div class="col">
+                    <i class="fa fa-bed icon"></i> <td class="house_data" id="NRoom">${FillInfo.NRoom}</td>
+                </div>
+                <div class="col">
+                    <i class="fa fa-car icon"></i> <td class="house_data" id="NPark">${FillInfo.NPark}</td>
+                </div>
+                <div class="col">
+                    <i class="fa fa-dollar icon"></i> <td class="house_data" id="price">${FillInfo.price}</td>
+                </div>
+                <div class="col">
+                    <i class="fa fa-home icon"></i> <td class="house_data" id="NFloor">${FillInfo.NFloor}pisos</td>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <h3>Descripcion</h3>
+                <p><td class="house_data" id="description">${FillInfo.description}</td></p>
+            </div>
+            <div id="edit_options">
+            </div>
+            <br>
+            <br>`;
+            console.log("Termine la funcion");
+            document.getElementById("info_casita").innerHTML = InfoHTML;  
+        }
+    }
+});
+        
+
+    </script>
     <div class="container">
         <div class="row">
             <div class="col">
                 <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
-                        <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
-                        <li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
-                            <img src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0" class="w-100 d-block" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0" class="w-100 d-block" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://www.mmarchitecturalphotography.com/chicago-architectural-photographer/uploads/2016/01/south-haven-custom-home-interiors.jpg" class="w-100 d-block" alt="Third slide">
+                            <img id="image" src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0" class="w-100 d-block" alt="First slide">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
@@ -80,47 +140,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="row">
-                <h1>CASA EN VENTA</h1>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col">
-                    <i class="fa fa-user icon"></i> <a href="/views/user">UsuarioX</a> 
-                </div>
-                <div class="col">
-                    <i class="fa fa-map-marker icon"></i> Ubicacion
-                </div>
-                <div class="col">
-                    <i class="fa fa-bath icon"></i> 3
-                </div>
-                <div class="col">
-                    <i class="fa fa-bed icon"></i> 4
-                </div>
-                <div class="col">
-                    <i class="fa fa-car icon"></i> 2
-                </div>
-                <div class="col">
-                    <i class="fa fa-dollar icon"></i> 10000.00
-                </div>
-                <div class="col">
-                    <i class="fa fa-home icon"></i> 2 pisos
-                </div>
-            </div>
-            <br><br>
-            <div class="row">
-                <h3>Detalles</h3>
-                <p>Descripcion...</p>
-            </div>
+        <div class="row" id="info_casita">
             
+            <div id="edit_options">
+                <a type="button" class="btn btn-primary btn-block" id="end_edit" onclick="ViewFunc()">Terminar edicion</a>
+                <br>
+                <button type="button" class="btn btn-danger btn-block" onclick="EditUser()">Cancelar edicion</button>
+            </div>
             <br>
             <br>
         </div>
     </div>
+    
   </main>
   <footer>
-
+    <!-- place footer here -->
   </footer>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

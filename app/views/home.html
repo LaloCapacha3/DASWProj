@@ -13,6 +13,7 @@
     <script src="https://kit.fontawesome.com/40f5ff1f80.js" crossorigin="anonymous"></script>
     <script src="../controllers/user.js"></script>
     <script src="../controllers/search.js"></script>
+    <script src="../controllers/homecontrol.js"></script>
     
 </head>
 
@@ -56,6 +57,7 @@
   <main>
     <script>
         document.addEventListener("DOMContentLoaded", NavBar);
+        document.addEventListener("DOMContentLoaded", FillHouses);
     </script>
     <br><br><br><br>
     <div class="row justify-content-md-center">
@@ -83,43 +85,8 @@
         </div>
     </div>
     <br><br>
-    <div class="row">
-      <div class="d-block col-lg-3 d-block col-md-4 d-block col-sm-6 col-8">
-        <img class="card-img-top fotos" src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0"  alt="Hola insertado">
-        <div class="card-body" style="text-align: center;">
-          <h4 class="card-title">Casa en venta</h4> 
-          <p class="card-text">Ubicacion: </p> 
-          <p class="card-text"></p>
-          <a href="../views/casa" class="btn btn-warning">Visitar Casa</a>     
-      </div>
-      </div>
-      <div class="d-block col-lg-3 d-block col-md-4 d-block col-sm-6 col-8">
-        <img class="card-img-top fotos" src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0"  alt="Hola insertado">
-        <div class="card-body" style="text-align: center;">
-          <h4 class="card-title">Casa en venta</h4> 
-          <p class="card-text">Ubicacion: </p> 
-          <p class="card-text"></p>
-          <a href="../views/casa" class="btn btn-warning">Visitar Casa</a>     
-      </div>
-      </div>
-      <div class="d-block col-lg-3 d-block col-md-4 d-block col-sm-6 col-8">
-        <img class="card-img-top fotos" src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0"  alt="Hola insertado">
-        <div class="card-body" style="text-align: center;">
-          <h4 class="card-title">Casa en venta</h4> 
-          <p class="card-text">Ubicacion: </p> 
-          <p class="card-text"></p>
-          <a href="../views/casa" class="btn btn-warning">Visitar Casa</a>     
-      </div>
-      </div>
-      <div class="d-block col-lg-3 d-block col-md-4 d-block col-sm-6 col-8">
-        <img class="card-img-top fotos" src="https://th.bing.com/th/id/R.8ab4658e376333410952e6103ac980ee?rik=1xly8i7O10Ug3w&pid=ImgRaw&r=0"  alt="Hola insertado">
-        <div class="card-body" style="text-align: center;">
-          <h4 class="card-title">Casa en venta</h4> 
-          <p class="card-text">Ubicacion: </p> 
-          <p class="card-text"></p>
-          <a href="../views/casa" class="btn btn-warning">Visitar Casa</a>     
-         </div>
-      </div>
+    <div class="row" id="llenar_de_casas">
+      
     </div>
   <br><br>
   </div> 

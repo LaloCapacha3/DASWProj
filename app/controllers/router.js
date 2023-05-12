@@ -21,6 +21,7 @@ router.get('/',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/hom
 router.get('/home',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/home.html")));
 router.get('/AddHome',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/Crear_publicacion.html")));
 router.get('/search',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/SearchResults.html")));
+router.get('/views/casa/?',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/houseview.html")));
 
 
 
