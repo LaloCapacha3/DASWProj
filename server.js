@@ -9,6 +9,7 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('app'));
 app.use('/views',express.static('views'));
+app.use('/controllers',express.static('controllers'));
 app.use(router);
 
 /*

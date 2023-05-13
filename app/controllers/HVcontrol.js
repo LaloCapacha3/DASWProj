@@ -1,14 +1,18 @@
 function ViewFunc(){
     console.log("Entro a la funcion");
     xhr = new XMLHttpRequest();
-    xhr.open('GET','/views/casa/:id',true);
+    xhr.open('GET','/views/casa/getinfo',true);
     xhr.setRequestHeader('Content-Type','application/json');
-    xhr.setRequestHeader('x-token',req.params.id);
+    xhr.setRequestHeader('x-token',sessionStorage.getItem("IDCasa"));
+    console.log("Enviando")
     xhr.send();
     xhr.onload = function(){
-        //let infoCasa = document.getElementById("info_casita");
-        if(xhr.status == 200){
-            let FillInfo = JSON.parse(xhr.responseText);
+        if(xhr.status == 200){       
+            let home = JSON.parse(xhr.responseText)[0]
+            let user = JSON.parse(xhr.responseText)[1]
+            console.log("user" + user);
+            sessionStorage.setItem("IDUser",user.ID);
+            let FillInfo = home;
             const InfoHTML = `
             <div class="row">
                 <h1>CASA EN VENTA</h1>
@@ -16,7 +20,7 @@ function ViewFunc(){
             <br>
             <div class="row">
                 <div class="col">
-                    <i class="fa fa-user icon"></i> <a href="/views/user">UsuarioX</a> 
+                    <i class="fa fa-user icon"></i> <a href="/views/user/?id=${user.ID}">${user.name}</a> 
                 </div>
                 <div class="col">
                     <i class="fa fa-map-marker icon"></i> <td class="house_data" id="location">Ubicacion: ${FillInfo.location}</td>
@@ -47,12 +51,10 @@ function ViewFunc(){
             <br>
             <br>`;
             console.log("Termine la funcion");
-            //console.log(InfoHTML);
-            document.getElementById("info_casita").innerHTML = InfoHTML; 
+            document.getElementById("info_casita").innerHTML = InfoHTML;  
+            document.getElementById("image").innerHTML = `<img src="${FillInfo.image}" class="w-100 d-block" alt="First slide">`;
         }
+        NavBar();
     }
+    
 };
-
-function test(){
-    console.log("soy el test");
-}

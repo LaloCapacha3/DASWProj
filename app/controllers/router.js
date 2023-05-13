@@ -22,7 +22,7 @@ router.get('/home',(req,res) => res.sendFile(path.resolve(__dirname + "/../views
 router.get('/AddHome',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/Crear_publicacion.html")));
 router.get('/search',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/SearchResults.html")));
 router.get('/views/casa/?',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/houseview.html")));
-
+router.get('/views/user/?',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/userprofile.html")));
 
 
 

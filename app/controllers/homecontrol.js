@@ -24,6 +24,7 @@ function FillHouses(){
                 casas.innerHTML=allCasas; 
             } 
         }
+        NavBar();
     }
 };
 

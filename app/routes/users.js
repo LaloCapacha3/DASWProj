@@ -46,6 +46,9 @@ const VendedorSchema = mongoose.Schema({
     NoOfHomes:{
         type: Number
     },
+    homes:{
+        type: Array
+    }
 })
 
 
@@ -90,7 +93,8 @@ router.post('/register',(req,res) => {
                     state: x.state,
                     city: x.city,
                     phone: x.phone,
-                    NoOfHomes: 0
+                    NoOfHomes: 0,
+                    homes: []
                 });
                 console.log("Vendedor: ");
                 console.table(vendedor);

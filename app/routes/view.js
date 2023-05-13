@@ -111,29 +111,35 @@ let home;
 router.get('/casa/getinfo',(req,res) => {
     const CasaID = req.headers['x-token'];
     console.log(CasaID);
-    
     mongoose.model('Casas').findOne({ID: CasaID}).then((InfoCasa) => {
         if(InfoCasa == null){
             res.sendStatus(404);
         }
         else{
             home = InfoCasa;
-            mongoose.model('vendedores').findOne({ID: home.owner}).then((InfoVendedor) => {
-                console.log("voy a mandar usuario y casa");
-                   res.status(200).send([home,InfoVendedor]);
+            mongoose.model('vendedores').findOne({ID: InfoCasa.owner}).then((InfoVendedor) => {
+                console.log("voy a mandar usuario y casas");
+                res.status(200).send([InfoCasa,InfoVendedor]);
         });
     }});
-    
-    /*mongoose.model('vendedores').findOne({ID: home.owner}).then((InfoVendedor) => {
-     console.log("voy a mandar usuario y casa");
-        res.status(200).send([home,InfoVendedor]);
-    }); */
 });
 
-router.get('/user',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/userprofile.html")));
+//router.get('/user',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/userprofile.html")));
 
-router.get('/user/:id',(req,res) => {
+router.get('/user/getinfo',(req,res) => {
+    const UserID = req.headers['x-token'];
+    console.log(UserID);
 
+    mongoose.model('vendedores').findOne({ID: UserID}).then((InfoVendedor) => {
+        if(InfoVendedor == null){
+            res.sendStatus(404);
+        }
+        else{
+            console.log("voy a mandar");
+            res.status(200).send(InfoVendedor);
+        }
+    });
+    //res.sendFile(path.resolve(__dirname + "/../views/userprofile.html"))
 });
 
 /* router.get('/casa/:id',(req,res) => {
@@ -175,6 +181,7 @@ router.get('/houseinfo',(req,res) => {
             res.sendStatus(404);
         }
         else{
+
             res.status(200).send(casas);
         }
     });
@@ -182,9 +189,10 @@ router.get('/houseinfo',(req,res) => {
 
 
 router.post('/casa/user/AddHome',(req,res) => {
+    let owner = req.body.owner;
     let casa = {
         ID: utils.generateUUID(),
-        owner: req.body.owner,
+        owner: owner,
         image: req.body.image,
         size: req.body.size,
         type: req.body.type,
@@ -209,7 +217,20 @@ router.post('/casa/user/AddHome',(req,res) => {
     CasaAgg.save()
     .then((doc) => {
         console.log('Casa creada: ' + doc);
-        res.redirect('/casa');
+        mongoose.model('vendedores').findOne({ID: owner}).then((vendedor) => {  
+            if(vendedor == null){
+                res.status(404).send('Error de usuario');
+            }
+            else{
+                    console.table(vendedor.homes);
+                    vendedor.NoOfHomes = vendedor.NoOfHomes + 1;
+                    vendedor.homes.push(casa.ID);
+                    vendedor.save();
+                    res.status(200).send('Casa creada: ' + doc);
+                }
+            }
+        );
+        
     })
     .catch((err) => {
         console.error(err);
