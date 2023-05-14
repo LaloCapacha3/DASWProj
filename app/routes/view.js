@@ -124,8 +124,6 @@ router.get('/casa/getinfo',(req,res) => {
     }});
 });
 
-//router.get('/user',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/userprofile.html")));
-
 router.get('/user/getinfo',(req,res) => {
     const UserID = req.headers['x-token'];
     console.log(UserID);
@@ -135,45 +133,14 @@ router.get('/user/getinfo',(req,res) => {
             res.sendStatus(404);
         }
         else{
-            console.log("voy a mandar");
-            res.status(200).send(InfoVendedor);
+            mongoose.model('Casas').find({owner: InfoVendedor.ID}).then((vendecasas) => {
+                console.log("voy a mandar info de vendedor y sus casas");
+                res.status(200).send([InfoVendedor,vendecasas]);
+            });
         }
     });
-    //res.sendFile(path.resolve(__dirname + "/../views/userprofile.html"))
 });
 
-/* router.get('/casa/:id',(req,res) => {
-    const CasaID = req.params.id;
-    mongoose.model('Casas').findOne({ID: CasaID}).then((InfoCasa) => {
-        if(InfoCasa == null){
-            res.sendStatus(404);
-        }
-        else{
-            console.log("voy a mandar");
-            //res.status(200).send(InfoCasa);
-            console.log(path.resolve(__dirname + "/../views/houseview.html"));
-            res.sendFile(path.resolve(__dirname + "/../views/houseview.html"));
-            //res.sendFile(path.resolve(__dirname + "/../views/houseview.html"));
-        }
-    });
-    
-});
- */
-/*
-router.get('/casa/:id',(req,res) => {
-    const CasaID = req.params.id;
-    mongoose.model('Casas').findOne({ID: CasaID}).then((InfoCasa) => {
-        if(InfoCasa == null){
-            res.sendStatus(404);
-        }
-        else{
-            console.log("voy a mandar");
-            res.status(200).send(InfoCasa);
-            //res.sendFile(path.resolve(__dirname + "/../views/houseview.html"));
-        }
-    });
-    //res.sendFile(path.resolve(__dirname + "/../views/houseview.html"));
-});*/
 
 router.get('/houseinfo',(req,res) => {
     mongoose.model('Casas').find().then((casas) => {
@@ -238,5 +205,44 @@ router.post('/casa/user/AddHome',(req,res) => {
     });
 });
 
+router.delete('/casa/delete',(req,res) => {
+    //console.log("Entre a delete");
+    const CasaID = req.headers['del-token'];
+    console.log(CasaID);
+    mongoose.model('Casas').findOne({ID: CasaID}).then((casa) => {  
+        mongoose.model('vendedores').findOne({ID: casa.owner}).then((own) => {  
+            own.NoOfHomes = own.NoOfHomes - 1;
+            let tmp = own.homes;
+            let index = tmp.indexOf(CasaID);
+            tmp.splice(index,1);
+
+            own.homes = tmp;
+            console.log(tmp);
+            
+            own.save();
+        });
+    });
+    mongoose.model('Casas').deleteOne({ID: CasaID}).then((eliminado) => {
+        console.log("Borre la casa con id: ", CasaID);
+    });
+    location.reload();
+});
+
+router.put('/casa/user/updateHome',(req,res) => {
+    const CasaIDUPD = req.headers['my-casita'];
+    console.log(CasaIDUPD);
+    
+    mongoose.model('Casas').findOne({ID: CasaIDUPD}).then((CasitaUPD) => {
+        CasitaUPD.price = req.body.price,
+        CasitaUPD.description = req.body.description,
+        CasitaUPD.location = req.body.location,
+        CasitaUPD.NRoom = req.body.NRoom,
+        CasitaUPD.NBath = req.body.NBath,
+        CasitaUPD.NFloor = req.body.NFloor,
+        CasitaUPD.NPark = req.body.NPark,
+        CasitaUPD.save()
+        console.log("Casita actualizada");
+    });
+});
 
 module.exports = router;

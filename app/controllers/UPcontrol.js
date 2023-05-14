@@ -8,7 +8,7 @@ function UPDUP(){
   xhr.send();
   xhr.onload = function(){
       if(xhr.status == 200){       
-          let user = JSON.parse(xhr.responseText)
+          let user = JSON.parse(xhr.responseText)[0];
           console.table(user);
           const BigInfo = `
           <br><br>
@@ -47,23 +47,51 @@ function UPDUP(){
           </div>  
         </div>`;
         let NoOfHomes = user.NoOfHomes;
+        let VendeCasas = JSON.parse(xhr.responseText)[1];
+        console.table(VendeCasas);
+        let AllCasas = "";
         for(let i = 0; i < NoOfHomes; i++){
-          let home = user.homes[i];
+          let home = VendeCasas[i];
           let houseHTML = `
             <div class="card" style="flex-direction: row;">
               <img class="card-img-left" src="${home.image}" style="width: 200px; height: 200px;" alt="Title" >
               <div class="card-body">
                 <h4 class="card-title">${home.type} de ${user.name}</h4>
                 <p class="card-text">${home.description}</p>
-                <a href="../views/casa" class="btn btn-warning">Visitar Casa</a>     
+                <a href="/../../views/casa/?id=${home.ID}" onclick="saveIDUP('${home.ID}')" class="btn btn-warning">Visitar Casa</a>  
+                <a href="/../../views/casa/?id=${home.ID}" onclick="EditHouse('${home.ID}')" class="btn btn-primary">Editar Casa</a>
+                <a onclick="DelHouse('${home.ID}')" class="btn btn-danger">Eliminar Casa</a>   
               </div>
             </div>
             <br><br>
           `;
+          AllCasas = AllCasas + houseHTML;
           console.log("Termine la funcion");
           document.getElementById("fill_with_info").innerHTML = BigInfo;
-          document.getElementById("fill_mini_houses").innerHTML += houseHTML;
       }
+      document.getElementById("fill_mini_houses").innerHTML = AllCasas;
   }
   NavBar();}
+};
+
+function DelHouse(ID){
+  xhr = new XMLHttpRequest();
+  xhr.open('DELETE','/views/casa/delete',true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.setRequestHeader('del-token',ID);
+  console.log("Enviando")
+  xhr.send();
+  xhr.onload = function(){
+    setTimeout(() => {   location.reload(); }, 1000); 
+  }
+};
+
+function saveIDUP(ID){
+  sessionStorage.setItem("IDCasa",ID);
+  console.log("subo id");
+}
+
+function EditHouse(ID){
+  sessionStorage.setItem("IDCasa",ID);
+  sessionStorage.setItem("Editing","true");
 };

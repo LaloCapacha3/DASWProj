@@ -28,11 +28,6 @@ function FillHouses(){
     }
 };
 
-function UpdSS(ID){
-    sessionStorage.setItem("IDCasa",ID);
-    console.log("subo id");
-};
-
 function saveID(ID){
     sessionStorage.setItem("IDCasa",ID);
     console.log("subo id");

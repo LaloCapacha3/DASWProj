@@ -32,7 +32,7 @@ function register(){
             console.log("Vendedor");
             UserType = "Vendedor";
         }
-        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"description\":\""+description+"\",\"date\":\""+date+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\",\"UserType\":\""+UserType+"\"}";
+        let data = "{\"name\":\""+name+"\",\"email\":\""+email+"\",\"password\":\""+password+"\",\"description\":\""+description+"\",\"date\":\""+date+"\",\"city\":\""+city+"\",\"image\":\""+imagen+"\",\"state\":\""+state+"\",\"country\":\""+country+"\",\"phone\":\""+phone+"\",\"UserType\":\""+UserType+"\"}";
         console.table(JSON.parse(data));
         xhr.send(data);
     

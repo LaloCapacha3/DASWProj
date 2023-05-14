@@ -40,6 +40,9 @@ const VendedorSchema = mongoose.Schema({
     city:{
         type: String
     },
+    image:{
+        type: String
+    },
     phone:{
         type: String
     },
@@ -92,6 +95,7 @@ router.post('/register',(req,res) => {
                     country: x.country,
                     state: x.state,
                     city: x.city,
+                    image: x.image,
                     phone: x.phone,
                     NoOfHomes: 0,
                     homes: []
