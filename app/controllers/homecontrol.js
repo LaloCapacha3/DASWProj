@@ -18,6 +18,8 @@ function FillHouses(){
 function saveID(ID){
     sessionStorage.setItem("IDCasa",ID);
     console.log("subo id");
+    setTimeout(() => {   
+        }, 3000);
 }
 
 function crear_casa (casas){

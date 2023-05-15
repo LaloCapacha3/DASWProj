@@ -4,6 +4,7 @@ const utils = require('../controllers/utils');
 const router = express.Router();
 const path = require('path');
 const { send } = require('process');
+const { table } = require('console');
 
 let mongoConnection = "mongodb+srv://admin:casas@myapp.go7n5tu.mongodb.net/ProyectoFinal";
 let db = mongoose.connection;
@@ -307,5 +308,66 @@ router.get('/casa/findbyloc',(req,res) => {
         res.status(200).send(Final);
     });
 });
+
+router.get('/casa/findbytype',(req,res) => {
+    const TypViv = req.headers['my-type'];
+    console.log(TypViv);
+    mongoose.model('Casas').find({type: TypViv}).then((CasasTyp) => {
+        if(CasasTyp == null){
+            console.log("No hay casas de este tipo");
+            res.sendStatus(404);
+        }
+        else{
+            console.table(CasasTyp);
+            res.status(200).send(CasasTyp);
+        }
+    });
+});
+
+router.get('/casa/findbyfloors',(req,res) => {
+    const FlooFil = req.headers['my-floors'];
+    console.log(FlooFil);
+    mongoose.model('Casas').find({NFloor: FlooFil}).then((CasasFloo) => {
+        if(CasasFloo == null){
+            console.log("No hay casas de este tipo");
+            res.sendStatus(404);
+        }
+        else{
+            console.table(CasasFloo);
+            res.status(200).send(CasasFloo);
+        }
+    });
+});
+
+
+router.get('/casa/findAll',(req,res) => {
+    mongoose.model('Casas').find().then((AllH) => {
+        if(AllH == null){
+            res.sendStatus(404);
+        }
+        else{
+            res.status(200).send(AllH);
+        }
+    });
+});
+
+router.get('/casa/findbywishlist',(req,res) => {
+    const UserID = req.headers['my-user'];
+    console.log(UserID);
+    mongoose.model('compradores').findOne({ID: UserID}).then((InfoComprador) => {
+        if(InfoComprador == null){
+            res.sendStatus(404);
+        }
+        else{
+            mongoose.model('Casas').find({ID: InfoComprador.Whislist}).then((wishlist) => {
+                console.log("wishlist");
+                console.table(wishlist);
+                res.status(200).send(wishlist);
+            });
+        }
+    });
+});
+
+
 
 module.exports = router;

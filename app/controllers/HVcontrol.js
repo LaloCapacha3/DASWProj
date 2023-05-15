@@ -12,9 +12,15 @@ function ViewFunc(){
             let FillInfo = home;
             const InfoHTML = `
             <div class="row">
+                <div class="col-md-9">
                 <h1>CASA EN VENTA</h1>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-block" onclick="AddWishList()">Agregar a lista de deseos</button>
+                </div>
             </div>
             <br>
+            <div class="row">
             <div class="tab-content col-md-3 p-3 rounded" >
                 <table class="table table-bordered table-hover">
                     <tbody>
@@ -45,6 +51,7 @@ function ViewFunc(){
                     </tbody>
                 </table>
             </div>
+            
             
             <div id="edit_options">
 
@@ -107,5 +114,23 @@ function CancelEdit(){
         house_data[i].setAttribute("contenteditable","false");
     }
     document.getElementById("edit_options").innerHTML = ``;
+    ViewFunc();
+}
+
+function AddWishList(){
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST','/user/addtowishlist',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('my-casita',sessionStorage.getItem("IDCasa"));
+    xhr.setRequestHeader('my-user',sessionStorage.getItem("UserValidation"));
+    xhr.send();
+    xhr.onload = function(){
+        if(xhr.status == 200){
+            alert("Casa agregada a lista de deseos");
+        }
+        else{
+            alert("Error al agregar a lista de deseos");
+        }
+    }
     ViewFunc();
 }

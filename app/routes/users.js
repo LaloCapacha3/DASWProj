@@ -358,5 +358,25 @@ router.put('/rating',(req,res) => {
     });
 });
 
+router.post('/addtowishlist',(req,res) => {
+    console.log("Add to wishlist working!");
+    let token = req.headers['x-token'];
+    let casa = req.headers['my-casita']
+    let user = req.headers['my-user'];
+    console.log("User: " + user);
+    mongoose.model('compradores').findOne({ID: user}).then((comprador) => {
+        if(comprador == null){
+            res.sendStatus(404);
+        }
+        else{
+            console.log("Casa: " + casa);
+            comprador.Whislist.push(casa);
+            comprador.NoOfHomes++;
+            comprador.save();
+            res.status(200).send(comprador.Whislist);
+        }
+    });
+});
+
 
 module.exports = router;

@@ -29,7 +29,7 @@
           <div class="collapse navbar-collapse" id="collapsibleNavId">
               <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" href="../search" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
+                    <a class="nav-link active" href="http://localhost:3000/search" aria-current="page">Comprar<span class="visually-hidden">(current)</span></a> 
                   </li>
               </ul>
               <ul class="navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end" style="float: right;">
@@ -47,7 +47,7 @@
   </header>
     <main></main>
       <script>
-        document.addEventListener("DOMContentLoaded", NavBar);
+        document.addEventListener("DOMContentLoaded", SearchLoad);
         //document.addEventListener("DOMContentLoaded", ShowSearchResults);
       </script>
     <h2 style="text-align: center;margin-top: 70px; ">Buscar por</h2>
@@ -63,8 +63,8 @@
         
       <button  id="vivienda" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Vivienda</button>
           <ul class="dropdown-menu">
-              <li><a onclick="SelectVivienda(this)" class="dropdown-item" href="#">Casa</a></li>
-              <li><a onclick="SelectVivienda(this)" class="dropdown-item" href="#">Departamento</a></li>
+              <li><a onclick="SearchByType('Casa')" class="dropdown-item">Casa</a></li>
+              <li><a onclick="SearchByType('Departamento')" class="dropdown-item">Departamento</a></li>
           </ul>      
     
   </section>
@@ -73,15 +73,14 @@
   <section style=" margin-left: 60px;">
     <button id="NPisos" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Numero de pisos</button>
           <ul class="dropdown-menu">
-            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">1</a></li>
-            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">2</a></li>
-            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">3</a></li>
-              
+            <li><a onclick="SearchByLevels(1)" class="dropdown-item">1</a></li>
+            <li><a onclick="SearchByLevels(2)" class="dropdown-item">2</a></li>
+            <li><a onclick="SearchByLevels(3)" class="dropdown-item">3</a></li>
           </ul>
     </section>
   </form>
-  
-  <div id="results_search">
+  <br><br>
+  <div id="results_search" class="row justify-content-md-center">
 
   </div>
 

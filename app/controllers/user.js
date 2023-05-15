@@ -249,7 +249,7 @@ function NavBar(){
                     </ul>\
                     <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end\" style=\"float: right;\">\
                         <li class=\"nav-item\">\
-                            <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-star icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                            <a class=\"nav-link active\" href=\"javascript:MyWhishList()\" aria-current=\"page\"><i class='fa fa-star icon'></i><span class=\"visually-hidden\">(current)</span></a>\
                         </li>\
                         <li class=\"nav-item\">\
                             <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-user-circle icon'></i><span class=\"visually-hidden\">(current)</span></a>\
@@ -288,3 +288,9 @@ function DeleteUser(){
         }
     }
 }
+
+function MyWhishList(){
+    sessionStorage.setItem("WishList","true");
+    window.location.href = "http://localhost:3000/search";
+}
+
