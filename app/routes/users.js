@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const utils = require('../controllers/utils');
+const { read } = require('fs');
 const router = express.Router();
 let app = express();
 
@@ -54,6 +55,9 @@ const VendedorSchema = mongoose.Schema({
     },
     rating:{
         type: Number
+    },
+    numberofratings:{
+        type: Number
     }
 })
 
@@ -97,6 +101,12 @@ const CompradorSchema = mongoose.Schema({
     Whislist:{
         type: Array
     },
+    numberofratings:{
+        type: Number
+    },
+    rating:{
+        type: Number
+    }
 })
 
 var Comprador = mongoose.model('compradores',CompradorSchema);
@@ -145,7 +155,8 @@ router.post('/register',(req,res) => {
                         phone: x.phone,
                         NoOfHomes: 0,
                         homes: [],
-                        rating: 0
+                        rating: 0,
+                        numberofratings: 0
                     });
                     console.log("Vendedor: ");
                     console.table(vendedor);
@@ -176,7 +187,8 @@ router.post('/register',(req,res) => {
                         phone: x.phone,
                         NoOfHomes: 0,
                         homes: [],
-                        rating: 0
+                        rating: 0,
+                        numberofratings: 0
                     });
                     console.log("Comprador: ");
                     console.table(comprador);
@@ -318,7 +330,33 @@ router.get('/type',(req,res) => {
     );
 });
 
-
+router.put('/rating',(req,res) => {
+    console.log("Rating working!");
+    let token = req.headers['x-token'];
+    console.log("Token: " + token);
+    let rate = req.headers['rate'];
+    mongoose.model('vendedores').findOne({ID: token}).then((vendedor) => {
+        if(vendedor == null){
+            res.sendStatus(404);
+        }
+        else{
+            if(rate == 1){
+                vendedor.rating = (vendedor.rating * vendedor.numberofratings + 10)/(vendedor.numberofratings + 1);
+                vendedor.numberofratings++;
+                console.log("like")
+                vendedor.save();
+                res.sendStatus(200);
+            }
+            else{
+                vendedor.rating = (vendedor.rating * vendedor.numberofratings)/(vendedor.numberofratings + 1);
+                vendedor.numberofratings++;
+                console.log("dislike")
+                vendedor.save();
+                res.sendStatus(200);
+            }
+        }
+    });
+});
 
 
 module.exports = router;

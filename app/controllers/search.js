@@ -1,16 +1,24 @@
 function SelectVivienda(option){ 
     var dropdown=document.getElementById("vivienda");
-     dropdown.innerHTML=option.innerHTML 
+    dropdown.innerHTML=option.innerHTML
+    sessionStorage.setItem("TipoViv",option.innerHTML);
 }
 
 function SelectPrecio(option){ 
     var dropdown=document.getElementById("Precio") 
-    dropdown.innerHTML=option.innerHTML 
+    dropdown.innerHTML=option.innerHTML;
+    if(option.innerHTML == 2000000){
+        sessionStorage.setItem("PrecioFil",0);
+    }else if(option.innerHTML == 2000001){
+        sessionStorage.setItem("PrecioFil",1);
+    }
+    //sessionStorage.setItem("PrecioFil",option.innerHTML);
 }
 
 function SelectPisos(option){ 
     var dropdown=document.getElementById("NPisos") 
-    dropdown.innerHTML=option.innerHTML 
+    dropdown.innerHTML=option.innerHTML;
+    sessionStorage.setItem("PisoFil",option.innerHTML);
 }
 
 
@@ -20,6 +28,9 @@ function busqueda_session(){
     xhr.open('GET','/views/casa/findbyloc',true);
     xhr.setRequestHeader('Content-Type','application/json');
     xhr.setRequestHeader('my-location',document.querySelector('input[placeholder="Buscar Casas"]').value);
+    xhr.setRequestHeader('my-vivienda',sessionStorage.getItem("TipoViv"));
+    xhr.setRequestHeader('my-precio',sessionStorage.getItem("PrecioFil"));
+    xhr.setRequestHeader('my-pisos',sessionStorage.getItem("PisoFil"));
     xhr.send();
     xhr.onload = function(){
         let MisLocaCasas = JSON.parse(xhr.responseText);
@@ -40,22 +51,8 @@ function busqueda_session(){
         } 
         document.getElementById("results_search").innerHTML = Locasas; 
         console.log(MisLocaCasas);
+        /*sessionStorage.removeItem("TipoViv");
+        sessionStorage.removeItem("PrecioFil");
+        sessionStorage.removeItem("PisoFil");*/
     }
 };
-/*
-function ShowSearchResults(){
-    xhr = new XMLHttpRequest();
-    var query = sessionStorage.getItem("SearchQuery");
-    var SearchBar = document.getElementById("SearchBar");
-    xhr.open('GET','/results',true);
-    xhr.setRequestHeader('Content-Type','application/json');
-    let data = "{\"tipo\":\"" + query + "\"" + ",\"Lugar\":\"" + SearchBar.value + "\"}";
-    xhr.send(data);
-    console.log(data);
-    xhr.onload = function(){
-        console.log("Response: " + xhr.responseText);
-        var results = document.getElementById("results");
-        results.innerHTML = xhr.responseText;
-    }
-}
-*/

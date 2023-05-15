@@ -34,13 +34,13 @@ function UPDUP(){
                 <div class="col">
                   <br><br>
                   <h2>Calificación</h2>
-                  <p>Calificación: 4.5</p>
+                  <p id="ratevalue">Calificación: ${user.rating}.toFixed(2)</p>
                   <p>Publicaciones: ${user.NoOfHomes}</p>
                 </div>
                 <div class="col">
-                  <button class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true" style="color: green;"></i></button>
-                  <button class="btn" id="red"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true" style="color: red;"></i></button>
-                </div>
+                  <div id="rating">
+                  </div>
+                  </div>
               </div>
             </div>
             <div class="col" id="fill_mini_houses">
@@ -92,7 +92,9 @@ function UPDUP(){
       document.getElementById("fill_with_info").innerHTML = BigInfo;
       document.getElementById("fill_mini_houses").innerHTML = AllCasas;
   }
-  NavBar();}
+  NavBar();
+  Ratingvalues();
+}
 };
 
 function DelHouse(ID){
@@ -109,7 +111,7 @@ function DelHouse(ID){
     setTimeout(() => {   
       document.body.style.backgroundImage = "color:white";
       location.reload();
-       }, 3000); 
+      }, 3000); 
   }
 };
 
@@ -122,3 +124,43 @@ function EditHouse(ID){
   sessionStorage.setItem("IDCasa",ID);
   sessionStorage.setItem("Editing","true");
 };
+
+
+function Ratingvalues(){
+  rating = document.getElementById("rating");
+  if(sessionStorage.getItem("UserValidation") != sessionStorage.getItem("IDUser")){
+    rating.innerHTML = `<button class="btn" id="green"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true" onclick="rate(1)" style="color: green;"></i></button>
+    <button class="btn" id="red"><i class="fa fa-thumbs-down fa-lg" aria-hidden="true" onclick="rate(0)" style="color: red;"></i></button>
+    `;
+  ratevalue = document.getElementById("ratevalue");
+  xhr = new XMLHttpRequest();
+  xhr.open('GET','/views/user/getinfo',true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.setRequestHeader('x-token',sessionStorage.getItem("IDUser"));
+  xhr.send();
+  xhr.onload = function(){
+    if(xhr.status == 200){
+      let user = JSON.parse(xhr.responseText)[0];
+      let grade = user.rating.toFixed(2);
+      ratevalue.innerHTML = `Calificación: ${grade}`;
+    }
+  }
+  
+}
+};
+
+function rate(rate){
+  xhr = new XMLHttpRequest();
+  xhr.open('PUT','/user/rating',true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.setRequestHeader('x-token',sessionStorage.getItem("IDUser"));
+  xhr.setRequestHeader('rate',rate);
+  console.log("Enviando")
+  xhr.send();
+  xhr.onload = function(){
+    if(xhr.status == 200){
+      Ratingvalues();
+    }
+  }
+}
+

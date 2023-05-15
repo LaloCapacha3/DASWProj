@@ -244,32 +244,67 @@ router.put('/casa/user/updateHome',(req,res) => {
     });
 });
 
-router.get('/Barra',(req,res) => {
-    let loca = req.headers['my-location'];
-    console.log(loca)
-    mongoose.model('Casas').find({location: loca}).then((casas) => {
-        if(casas == null){
-            console.log("no la encontro")
-            res.sendStatus(404);
-        }
-        else{
-            console.table(casas)
-            res.status(200).send(casas);
-        }
-    });
-});
-
 router.get('/casa/findbyloc',(req,res) => {
-    const loca = req.headers['my-location'];
-    mongoose.model('Casas').find({location : loca}).then((casasB) => {
-        if(casasB == null){
+    const locatio = req.headers['my-location'];
+    const TypViv = req.headers['my-vivienda'];
+    const FlooFil = req.headers['my-pisos'];
+
+    let locC=0,VivC=0,FlooC=0;
+
+    let Final = [];
+
+    mongoose.model('Casas').find().then((AllH) => {
+        if(AllH == null){
             res.sendStatus(404);
         }
         else{
-            console.log(casasB)
-            res.status(200).send(casasB);
-
+            Final = AllH;
+            
+                if (locatio != null && locC == 0){
+                    console.log("Entro a location");
+                    Final = Final.filter(filt => filt.location == locatio);
+                    /*Final.find({location : locatio}).then((CasasLoc) => {
+                        if(CasasLoc == null){
+                            res.sendStatus(404);
+                        }
+                        else{
+                            locC = 1;
+                            Final = CasasLoc;
+                        }
+                    });*/
+                    locC = 1;
+                }
+                if (TypViv != null && VivC == 0){
+                    console.log("Entro a typ");
+                    Final = Final.filter(filt => filt.type == TypViv);
+                    /*Final.find({type : TypViv}).then((CasasTyp) => {
+                        if(CasasTyp == null){
+                            res.sendStatus(404);
+                        }
+                        else{
+                            VivC = 1;
+                            Final = CasasTyp;
+                        }
+                    });*/
+                    VivC = 1;
+                }
+                /*if (FlooFil != null && FlooC == 0){
+                    console.log("Entro a floo");
+                    //Final = Final.filter(filt => filt.NFloor == FlooFil);
+                    Final.find({NFloor : FlooFil}).then((CasasFloo) => {
+                        if(CasasFloo == null){
+                            res.sendStatus(404);
+                        }
+                        else{
+                            FlooC = 1;
+                            Final = CasasFloo;
+                        }
+                    });
+                    FlooC = 1;
+                }*/
+            
         }
+        res.status(200).send(Final);
     });
 });
 
