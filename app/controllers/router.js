@@ -25,6 +25,4 @@ router.get('/views/casa/?',(req,res) => res.sendFile(path.resolve(__dirname + "/
 router.get('/views/user/?',(req,res) => res.sendFile(path.resolve(__dirname + "/../views/userprofile.html")));
 
 
-
-
 module.exports = router;

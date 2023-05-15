@@ -51,10 +51,55 @@ const VendedorSchema = mongoose.Schema({
     },
     homes:{
         type: Array
+    },
+    rating:{
+        type: Number
     }
 })
 
+const CompradorSchema = mongoose.Schema({
+    ID: {
+        type: String
+    },
+    name: {
+        type : String
+    },
+    email: {
+        type: String
+    },
+    password:{
+        type : String
+    },
+    date:{
+        type: String
+    },
+    description:{
+        type: String
+    },
+    country:{
+        type: String
+    },
+    state:{
+        type: String
+    },
+    city:{
+        type: String
+    },
+    image:{
+        type: String
+    },
+    phone:{
+        type: String
+    },
+    NoOfHomes:{
+        type: Number
+    },
+    Whislist:{
+        type: Array
+    },
+})
 
+var Comprador = mongoose.model('compradores',CompradorSchema);
 var Vendedor = mongoose.model('vendedores',VendedorSchema);
 
 
@@ -80,33 +125,66 @@ router.post('/register',(req,res) => {
         res.sendStatus(400);
     }
     else{
-        mongoose.model('vendedores').findOne({email: x.email}).then((vendedor) => {
-            if(vendedor != null){
-                res.sendStatus(409);
-            }
-            else{
-                let vendedor = new Vendedor({
-                    ID: utils.generateUUID(),
-                    name: x.name,
-                    email: x.email,
-                    password: hash,
-                    date: x.date,
-                    description: x.description,
-                    country: x.country,
-                    state: x.state,
-                    city: x.city,
-                    image: x.image,
-                    phone: x.phone,
-                    NoOfHomes: 0,
-                    homes: []
-                });
-                console.log("Vendedor: ");
-                console.table(vendedor);
-                vendedor.save();
-                res.status(200).send(vendedor.ID);
-            }
-        });
-        
+        if(x.UserType == "Vendedor"){
+            mongoose.model('vendedores').findOne({email: x.email}).then((vendedor) => {
+                if(vendedor != null){
+                    res.sendStatus(409);
+                }
+                else{
+                    let vendedor = new Vendedor({
+                        ID: utils.generateUUID(),
+                        name: x.name,
+                        email: x.email,
+                        password: hash,
+                        date: x.date,
+                        description: x.description,
+                        country: x.country,
+                        state: x.state,
+                        city: x.city,
+                        image: x.image,
+                        phone: x.phone,
+                        NoOfHomes: 0,
+                        homes: [],
+                        rating: 0
+                    });
+                    console.log("Vendedor: ");
+                    console.table(vendedor);
+                    vendedor.save();
+                    res.status(200).send(vendedor.ID);
+                }
+                
+            });
+                
+        }
+        else if(x.UserType == "Comprador"){
+            mongoose.model('compradores').findOne({email: x.email}).then((comprador) => {
+                if(comprador != null){
+                    res.sendStatus(409);
+                }
+                else{
+                    let comprador = new Comprador({
+                        ID: utils.generateUUID(),
+                        name: x.name,
+                        email: x.email,
+                        password: hash,
+                        date: x.date,
+                        description: x.description,
+                        country: x.country,
+                        state: x.state,
+                        city: x.city,
+                        image: x.image,
+                        phone: x.phone,
+                        NoOfHomes: 0,
+                        homes: [],
+                        rating: 0
+                    });
+                    console.log("Comprador: ");
+                    console.table(comprador);
+                    comprador.save();
+                    res.status(200).send(comprador.ID);
+                }
+            });
+        }
     }
 });
 
@@ -115,7 +193,20 @@ router.post('/login',(req,res) => {
     let x = req.body;
     mongoose.model('vendedores').findOne({email: x.email}).then((vendedor) => {
         if(vendedor == null){
-            res.sendStatus(404);
+            mongoose.model('compradores').findOne({email: x.email}).then((comprador) => {
+                if(comprador == null){
+                    res.sendStatus(404);
+                }
+                else{
+                    let correct_password = bcrypt.compareSync(x.password,comprador.password);
+                    if(correct_password){
+                        res.status(200).send(comprador.ID);
+                    }
+                    else{
+                        res.sendStatus(401);
+                    }
+                }
+            });
         }
         else{
             let correct_password = bcrypt.compareSync(x.password,vendedor.password);
@@ -135,7 +226,14 @@ router.get('/info',(req,res) => {
     console.log("Token: " + token);
     mongoose.model('vendedores').findOne({ID: token}).then((vendedor) => {
         if(vendedor == null){
-            res.sendStatus(404);
+            mongoose.model('compradores').findOne({ID: token}).then((comprador) => {
+                if(comprador == null){
+                    res.sendStatus(404);
+                }
+                else{
+                    res.status(200).send(comprador);
+                }
+            });
         }
         else{
             res.status(200).send(vendedor);
@@ -177,6 +275,47 @@ router.put('/info',(req,res) => {
             }
         }
     });
+});
+
+router.delete('/info',(req,res) => {
+    console.log("Info working!");
+    let token = req.headers['x-token'];
+    console.log("Token: " + token);
+    Comprador.findOneAndDelete({ID: token}).then((comprador) => {
+        if(comprador == null){
+            Vendedor.findOneAndDelete({ID: token}).then((vendedor) => {
+                if(vendedor == null){
+                    res.sendStatus(404);
+                }
+                else{
+                    res.sendStatus(200);
+                }
+            }
+            );
+        }
+        else{
+            res.sendStatus(200);
+        }
+    });
+});
+
+router.get('/type',(req,res) => {
+    Comprador.findOne({ID: req.headers['x-token']}).then((comprador) => {
+        if(comprador == null){
+            Vendedor.findOne({ID: req.headers['x-token']}).then((vendedor) => {
+                if(vendedor == null){
+                    res.sendStatus(404);
+                }
+                else{
+                    res.status(200).send("Vendedor");
+                }
+            });
+        }
+        else{
+            res.status(200).send("Comprador");
+        }
+    }
+    );
 });
 
 

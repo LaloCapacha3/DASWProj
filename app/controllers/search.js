@@ -1,19 +1,28 @@
-function borrar_dropdown(){ 
-    var dropdown=document.getElementById("vivienda")
-    dropdown.innerHTML=" " 
-} 
-function selectOption(option){ 
+
+function selectOption1(option){ 
     var dropdown=document.getElementById("vivienda") 
-    borrar_dropdown();
+    dropdown.innerHTML=" " 
+     dropdown.innerHTML=option.innerHTML 
+}
+function selectOption2(option){ 
+    var dropdown=document.getElementById("Precio") 
+    dropdown.innerHTML=" " 
+     dropdown.innerHTML=option.innerHTML 
+}
+function selectOption3(option){ 
+    var dropdown=document.getElementById("N_pisos") 
+    dropdown.innerHTML=" " 
      dropdown.innerHTML=option.innerHTML 
 }
 
 function query(){
     var dropdown=document.getElementById("vivienda");
-    console.log(dropdown.innerHTML);
+    var search=document.getElementById("SearchBar").value;
     sessionStorage.setItem("SearchQuery",dropdown.innerHTML);
+    sessionStorage.setItem("my-location-SS",search)
+    
 }
-
+/*
 function ShowSearchResults(){
     xhr = new XMLHttpRequest();
     var query = sessionStorage.getItem("SearchQuery");
@@ -29,4 +38,33 @@ function ShowSearchResults(){
         results.innerHTML = xhr.responseText;
     }
 }
+*/
+
+function busqueda_session(){
+    xhr = new XMLHttpRequest();
+    xhr.open('GET','/views/Barra',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('my-location',sessionStorage.getItem("my-location-SS"));
+    xhr.send();
+    xhr.onload = function(){
+        if(xhr.status == 200){ 
+            let MisLocaCasas = JSON.parse(xhr.responseText);
+            console.log(MisLocaCasas);
+        }
+    }
+}
+  function dropdown_session(){
+    const dropdown =sessionStorage.getItem("SearchQuery")
+    return dropdown
+}
+
+
+
+function prueba(){
+    busqueda_session();
+};
+
+
+
+
 

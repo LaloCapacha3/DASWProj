@@ -127,7 +127,6 @@ router.get('/casa/getinfo',(req,res) => {
 router.get('/user/getinfo',(req,res) => {
     const UserID = req.headers['x-token'];
     console.log(UserID);
-
     mongoose.model('vendedores').findOne({ID: UserID}).then((InfoVendedor) => {
         if(InfoVendedor == null){
             res.sendStatus(404);

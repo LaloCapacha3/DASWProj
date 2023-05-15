@@ -194,46 +194,97 @@ function SaveUserInfo(){
 
 function NavBar(){
     xhr = new XMLHttpRequest();
-    xhr.open('GET','/user/info',true);
+    xhr.open('GET','/user/type',true);
     let validate = sessionStorage.getItem("UserValidation");
     xhr.setRequestHeader('x-token',validate);
     xhr.send();
     xhr.onload = function(){
     let nav = document.getElementById("nav");
     if(xhr.status == 200){
-        nav.innerHTML = "\
-        <nav class=\"navbar navbar-dark navbar-expand-sm\" style=\"background-color: green;\">\
-          <div class=\"container\">\
-            <a class=\"navbar-brand\" href=\"http://localhost:3000/home\"><i class=\"fa fa-home icon\"></i></a>\
-            <button class=\"navbar-toggler d-lg-none\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapsibleNavId\" aria-controls=\"collapsibleNavId\"\
-                aria-expanded=\"false\" aria-label=\"Toggle navigation\">\
-                <span class=\"navbar-toggler-icon\"></span>\
-            </button>\
-            <div class=\"collapse navbar-collapse\" id=\"collapsibleNavId\">\
-                <ul class=\"navbar-nav me-auto mt-2 mt-lg-0\">\
-                    <li class=\nav-item\">\
-                      <a class=\"nav-link active\" href=\"http://localhost:3000/AddHome\" aria-current=\"page\">Vender<span class=\"visually-hidden\">(current)</span></a>\
-                    </li>\
-                </ul>\
-                <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end\" style=\"float: right;\">\
-                    <li class=\"nav-item\">\
-                      <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-user-circle icon'></i><span class=\"visually-hidden\">(current)</span></a>\
-                    </li>\
-                    <li class=\"nav-item\">\
-                        <button type=\"button\" class=\"btn btn-danger\" onclick=\"logout()\"><i class='fa fa-sign-out icon'></i></button>\
-                    </li>\
-                </ul>\
-            </div>\
-      </div>\
-    </nav>";
+        let type = xhr.responseText;
+        if(type == "Vendedor"){
+            nav.innerHTML = "\
+            <nav class=\"navbar navbar-dark navbar-expand-sm\" style=\"background-color: green;\">\
+            <div class=\"container\">\
+                <a class=\"navbar-brand\" href=\"http://localhost:3000/home\"><i class=\"fa fa-home icon\"></i></a>\
+                <button class=\"navbar-toggler d-lg-none\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapsibleNavId\" aria-controls=\"collapsibleNavId\"\
+                    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\
+                    <span class=\"navbar-toggler-icon\"></span>\
+                </button>\
+                <div class=\"collapse navbar-collapse\" id=\"collapsibleNavId\">\
+                    <ul class=\"navbar-nav me-auto mt-2 mt-lg-0\">\
+                        <li class=\nav-item\">\
+                        <a class=\"nav-link active\" href=\"http://localhost:3000/AddHome\" aria-current=\"page\">Vender<span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                    </ul>\
+                    <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end\" style=\"float: right;\">\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-star icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-user-circle icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"javascript:logout()\" aria-current=\"page\"><i class='fa fa-sign-out icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                    </ul>\
+                </div>\
+        </div>\
+        </nav>";
+        }
+        else{
+            nav.innerHTML = "\
+            <nav class=\"navbar navbar-dark navbar-expand-sm\" style=\"background-color: blue;\">\
+            <div class=\"container\">\
+                <a class=\"navbar-brand\" href=\"http://localhost:3000/home\"><i class=\"fa fa-home icon\"></i></a>\
+                <button class=\"navbar-toggler d-lg-none\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#collapsibleNavId\" aria-controls=\"collapsibleNavId\"\
+                    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\
+                    <span class=\"navbar-toggler-icon\"></span>\
+                </button>\
+                <div class=\"collapse navbar-collapse\" id=\"collapsibleNavId\">\
+                    <ul class=\"navbar-nav me-auto mt-2 mt-lg-0\">\
+                        <li class=\nav-item\">\
+                        <a class=\"nav-link active\" href=\"http://localhost:3000/Search\" aria-current=\"page\">Comprar<span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                    </ul>\
+                    <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0 justify-content-end\" style=\"float: right;\">\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-star icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"http://localhost:3000/user/profile\" aria-current=\"page\"><i class='fa fa-user-circle icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                        <li class=\"nav-item\">\
+                            <a class=\"nav-link active\" href=\"javascript:logout()\" aria-current=\"page\"><i class='fa fa-sign-out icon'></i><span class=\"visually-hidden\">(current)</span></a>\
+                        </li>\
+                    </ul>\
+                </div>\
+        </div>\
+        </nav>";
     }
-
 }
-
+}
 }
 
 function logout(){
     sessionStorage.removeItem("UserValidation");
     alert("Sesion cerrada correctamente");
     window.location.href = "http://localhost:3000/home";
+}
+
+function DeleteUser(){
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE','/user/info',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('x-token',sessionStorage.getItem("UserValidation"));
+    xhr.send();
+    xhr.onload = function(){
+        if(xhr.status == 200){
+            alert("Usuario eliminado correctamente");
+            logout();
+        }
+        else{
+            alert("Error al eliminar usuario");
+        }
+    }
 }
