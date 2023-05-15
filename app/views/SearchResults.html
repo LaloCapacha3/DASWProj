@@ -63,38 +63,30 @@
         
       <button  id="vivienda" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Vivienda</button>
           <ul class="dropdown-menu">
-              <li><a onclick="selectOption(this)" class="dropdown-item" href="#">Casa</a></li>
-              <li><a onclick="selectOption(this)" class="dropdown-item" href="#">Departamento</a></li>
+              <li><a onclick="SelectVivienda(this)" class="dropdown-item" href="#">Casa</a></li>
+              <li><a onclick="SelectVivienda(this)" class="dropdown-item" href="#">Departamento</a></li>
           </ul>      
     
   </section>
-    <section style=" margin-left: 60px;">
-    <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Zona</button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Norte</a></li>
-            <li><a class="dropdown-item" href="#">Sur</a></li>
-            <li><a class="dropdown-item" href="#">Este</a></li>
-            <li><a class="dropdown-item" href="#">Oeste</a></li>
-          </ul>
-  </section>
+    
 
-  </section>
+  
   <section style=" margin-left: 60px;">
-  <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Precio</button>
+  <button id="Precio" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Precio</button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">1,000,000-2,000,000</a></li>
-          <li><a class="dropdown-item" href="#">2,000,000-3,000,000</a></li>
-          <li><a class="dropdown-item" href="#">4,000,000-5,000,000</a></li>
+          <li><a onclick="SelectPrecio(this)" class="dropdown-item" href="#">1,000,000-2,000,000</a></li>
+          <li><a onclick="SelectPrecio(this)" class="dropdown-item" href="#">2,000,000-3,000,000</a></li>
+          <li><a onclick="SelectPrecio(this)" class="dropdown-item" href="#">4,000,000-5,000,000</a></li>
             
         </ul>
   </section>
 
   <section style=" margin-left: 60px;">
-    <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Numero de pisos</button>
+    <button id="NPisos" class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Numero de pisos</button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">1</a></li>
-            <li><a class="dropdown-item" href="#">2</a></li>
-            <li><a class="dropdown-item" href="#">3</a></li>
+            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">1</a></li>
+            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">2</a></li>
+            <li><a onclick="SelectPisos(this)" class="dropdown-item" href="#">3</a></li>
               
           </ul>
     </section>

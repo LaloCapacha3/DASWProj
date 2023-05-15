@@ -1,21 +1,21 @@
-function borrar_dropdown(){ 
-    var dropdown=document.getElementById("vivienda")
-    dropdown.innerHTML=" " 
-} 
-function selectOption(option){ 
-    var dropdown=document.getElementById("vivienda") 
-    borrar_dropdown();
+function SelectVivienda(option){ 
+    var dropdown=document.getElementById("vivienda");
      dropdown.innerHTML=option.innerHTML 
 }
 
-function query(){
-    var dropdown=document.getElementById("vivienda");
-    console.log(dropdown.innerHTML);
-    sessionStorage.setItem("SearchQuery",dropdown.innerHTML);
-};
+function SelectPrecio(option){ 
+    var dropdown=document.getElementById("Precio") 
+    dropdown.innerHTML=option.innerHTML 
+}
+
+function SelectPisos(option){ 
+    var dropdown=document.getElementById("NPisos") 
+    dropdown.innerHTML=option.innerHTML 
+}
+
 
 function busqueda_session(){
-    console.log("entro busq ss")
+    //console.log("entro busq ss")
     xhr = new XMLHttpRequest();
     xhr.open('GET','/views/casa/findbyloc',true);
     xhr.setRequestHeader('Content-Type','application/json');
