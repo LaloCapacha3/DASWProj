@@ -244,4 +244,33 @@ router.put('/casa/user/updateHome',(req,res) => {
     });
 });
 
+router.get('/Barra',(req,res) => {
+    let loca = req.headers['my-location'];
+    console.log(loca)
+    mongoose.model('Casas').find({location: loca}).then((casas) => {
+        if(casas == null){
+            console.log("no la encontro")
+            res.sendStatus(404);
+        }
+        else{
+            console.table(casas)
+            res.status(200).send(casas);
+        }
+    });
+});
+
+router.get('/casa/findbyloc',(req,res) => {
+    const loca = req.headers['my-location'];
+    mongoose.model('Casas').find({location : loca}).then((casasB) => {
+        if(casasB == null){
+            res.sendStatus(404);
+        }
+        else{
+            console.log(casasB)
+            res.status(200).send(casasB);
+
+        }
+    });
+});
+
 module.exports = router;

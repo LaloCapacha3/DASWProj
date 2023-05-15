@@ -1,27 +1,47 @@
-
-function selectOption1(option){ 
+function borrar_dropdown(){ 
+    var dropdown=document.getElementById("vivienda")
+    dropdown.innerHTML=" " 
+} 
+function selectOption(option){ 
     var dropdown=document.getElementById("vivienda") 
-    dropdown.innerHTML=" " 
-     dropdown.innerHTML=option.innerHTML 
-}
-function selectOption2(option){ 
-    var dropdown=document.getElementById("Precio") 
-    dropdown.innerHTML=" " 
-     dropdown.innerHTML=option.innerHTML 
-}
-function selectOption3(option){ 
-    var dropdown=document.getElementById("N_pisos") 
-    dropdown.innerHTML=" " 
+    borrar_dropdown();
      dropdown.innerHTML=option.innerHTML 
 }
 
 function query(){
     var dropdown=document.getElementById("vivienda");
-    var search=document.getElementById("SearchBar").value;
+    console.log(dropdown.innerHTML);
     sessionStorage.setItem("SearchQuery",dropdown.innerHTML);
-    sessionStorage.setItem("my-location-SS",search)
-    
-}
+};
+
+function busqueda_session(){
+    console.log("entro busq ss")
+    xhr = new XMLHttpRequest();
+    xhr.open('GET','/views/casa/findbyloc',true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('my-location',document.querySelector('input[placeholder="Buscar Casas"]').value);
+    xhr.send();
+    xhr.onload = function(){
+        let MisLocaCasas = JSON.parse(xhr.responseText);
+        let Locasas = " ";
+        for(const Lcasa of MisLocaCasas){            
+            const LcasasHTML = `<div class="d-block col-lg-3 d-block col-md-4 d-block col-sm-6 col-8">
+                                    <img class="card-img-top fotos" src="${Lcasa.image}"  alt="Hola insertado">
+                                    <div class="card-body" style="text-align: center;">
+                                        <h4 class="card-title">Casa en venta</h4> 
+                                        <p class="card-text">Ubicacion: ${Lcasa.location}</p> 
+                                        <p class="card-text"></p>
+                                        <a href="../views/casa/?id=${Lcasa.ID}" onclick="saveID('${Lcasa.ID}')" class="btn btn-warning">Visitar Casa</a>  
+                                    </div>
+                                </div>`;
+            Locasas = Locasas + LcasasHTML;
+            console.log(Locasas);
+            
+        } 
+        document.getElementById("results_search").innerHTML = Locasas; 
+        console.log(MisLocaCasas);
+    }
+};
 /*
 function ShowSearchResults(){
     xhr = new XMLHttpRequest();
@@ -39,32 +59,3 @@ function ShowSearchResults(){
     }
 }
 */
-
-function busqueda_session(){
-    xhr = new XMLHttpRequest();
-    xhr.open('GET','/views/Barra',true);
-    xhr.setRequestHeader('Content-Type','application/json');
-    xhr.setRequestHeader('my-location',sessionStorage.getItem("my-location-SS"));
-    xhr.send();
-    xhr.onload = function(){
-        if(xhr.status == 200){ 
-            let MisLocaCasas = JSON.parse(xhr.responseText);
-            console.log(MisLocaCasas);
-        }
-    }
-}
-  function dropdown_session(){
-    const dropdown =sessionStorage.getItem("SearchQuery")
-    return dropdown
-}
-
-
-
-function prueba(){
-    busqueda_session();
-};
-
-
-
-
-
