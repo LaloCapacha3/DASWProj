@@ -55,7 +55,7 @@ function UPDUP(){
         if(userlogged == user.ID){
           for(let i = 0; i < NoOfHomes; i++){
             let home = VendeCasas[i];
-            houseHTML = `
+            houseHTML += `
               <div class="card" style="flex-direction: row;">
                 <img class="card-img-left" src="${home.image}" style="width: 200px; height: 200px;" alt="Title" >
                 <div class="card-body">
@@ -74,7 +74,8 @@ function UPDUP(){
         for(let i = 0; i < NoOfHomes; i++){
           console.log("User sin edicion");
           let home = VendeCasas[i];
-            houseHTML = `
+          console.table(home);
+            houseHTML += `
               <div class="card" style="flex-direction: row;">
                 <img class="card-img-left" src="${home.image}" style="width: 200px; height: 200px;" alt="Title" >
                 <div class="card-body">
